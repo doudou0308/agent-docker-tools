@@ -84,6 +84,23 @@ docker exec chying-agent cat /tmp/out.txt
 
 在 `agent-work/.mcp.json` 中已配置好 MCP 连接。
 
+## Tri-Link: Trae + Docker + Wiki
+
+本项目是 CHYing Agent 三联动架构的 **Docker 执行层**，配套知识库位于：
+
+> **[doudou0308/ctf-wiki](https://github.com/doudou0308/ctf-wiki)** — 面向 LLM Agent 的 CTF 知识图谱
+> 238+ 页，覆盖 11 个赛道（Web/Pwn/Crypto/Reverse/Forensics/Misc/AI-ML/云安全/代码审计/恶意软件/OSINT）
+
+联动机制：
+
+| 角色 | 组件 | 职责 |
+|------|------|------|
+| **Trae** (Brain) | Trae IDE + `.claude/CLAUDE.md` | 规划、推理、编排 |
+| **Docker** (Hands) | 本镜像容器 | 执行安全工具、运行脚本 |
+| **Wiki** (Memory) | [ctf-wiki](https://github.com/doudou0308/ctf-wiki) | 卡壳时定向检索知识点与 PoC |
+
+标准流程：Trae 规划 → Docker 执行 → 卡壳查 Wiki → 继续推进。详见 `.claude/CLAUDE.md`。
+
 ## Trae IDE 集成
 
 本项目专为 Trae IDE + Claude Agent 设计。将项目在 Trae 中打开后：
