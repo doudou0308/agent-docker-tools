@@ -1,6 +1,5 @@
 # ============================================================
 # CHYing Agent — Docker Environment
-# Inspired by: https://cn-sec.com/archives/4742645.html
 # Base: Kali Linux Rolling with security research tools
 # ============================================================
 

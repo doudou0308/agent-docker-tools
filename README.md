@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-基于[《7天Top 9：我如何让 Claude 手搓一个全自动 CTF 选手》](https://cn-sec.com/archives/4742645.html)的思路构建的全自动 CTF 渗透 Docker 环境。
+全自动 CTF 渗透 Docker 环境，基于三联动架构（Trae + Docker + Wiki）。
 
 > **核心理念**：极简工具设计，只给 LLM 最少的选择，但每个选择都足够强大。
 
@@ -122,6 +122,7 @@ build:
 
 ## 参考
 
-- [原文：7天Top 9：我如何让 Claude 手搓一个全自动 CTF 选手](https://cn-sec.com/archives/4742645.html)
 - [yhy0/CHYing-agent — 原始项目](https://github.com/yhy0/CHYing-agent)
 - [GhidraMCP — 逆向 MCP Server](https://github.com/bethington/ghidra-mcp)
+- [doudou0308/ctf-wiki — 配套 CTF 知识图谱](https://github.com/doudou0308/ctf-wiki)
+
