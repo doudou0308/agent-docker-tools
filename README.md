@@ -16,11 +16,22 @@ chying-agent-docker-tools/
 ├── README.md
 ├── docker/
 │   └── entrypoint.sh       # 容器入口脚本（启动 GhidraMCP 等服务）
+├── .trae/
+│   └── memory/
+│       └── project_memory.md  # 项目记忆（知识库路径、解题规则、工作流）
 ├── agent-work/             # Trae IDE Agent 工作区配置
 │   ├── .mcp.json           # MCP 服务配置（GhidraMCP, Chrome DevTools）
 │   └── CLAUDE.md           # Agent 行为指令
 ├── scripts/
-│   └── solve.py            # CTF 解题脚本模板
+│   ├── solve.py            # CTF 解题脚本模板（Web/Pwn/Crypto/Reverse/Forensics）
+│   └── recon.py            # 快速侦察脚本
+├── docs/
+│   └── cheatsheets/        # CTF 分类速查表
+│       ├── web.md          # Web 安全（SQLi/SSTI/SSRF/JWT/反序列化）
+│       ├── pwn.md          # 二进制利用（栈/堆/ROP/格式化字符串）
+│       ├── crypto.md       # 密码学（RSA/AES/ECC/PRNG/格密码）
+│       ├── reverse.md      # 逆向工程（静态/动态/加壳/VM）
+│       └── forensics.md    # 取证分析（磁盘/内存/网络/隐写）
 └── ctf-solutions/          # 解题记录输出目录
 ```
 
@@ -83,6 +94,39 @@ docker exec chying-agent cat /tmp/out.txt
 - MCP SSE: `http://localhost:8766/sse`
 
 在 `agent-work/.mcp.json` 中已配置好 MCP 连接。
+
+## 分类速查表
+
+`docs/cheatsheets/` 目录提供五大 CTF 类别的命令速查：
+
+| 速查表 | 前置准备 | 快速侦察 | 核心攻击 | 常见陷阱 |
+|--------|---------|---------|---------|---------|
+| [web.md](docs/cheatsheets/web.md) | pip install | curl/gobuster | SQLi/SSTI/SSRF/JWT | URL 编码失真 |
+| [pwn.md](docs/cheatsheets/pwn.md) | pwntools/ROPgadget | checksec | ret2/ROP/格式化字符串 | movaps 栈对齐 |
+| [crypto.md](docs/cheatsheets/crypto.md) | pycryptodome/gmpy2 | 参数识别 | RSA/AES/PRNG/格 | phi 特例 |
+| [reverse.md](docs/cheatsheets/reverse.md) | GhidraMCP/objdump | file/strings | SMC/VM/加壳 | .rodata 硬编码 |
+| [forensics.md](docs/cheatsheets/forensics.md) | binwalk/volatility3 | file/binwalk | 隐写/雕刻/MFT | 文件末尾附加 |
+
+## 脚本辅助
+
+```bash
+# 快速侦察（URL/文件）
+docker exec chying-agent python3 /root/scripts/recon.py http://target:port
+docker exec chying-agent python3 /root/scripts/recon.py challenge.elf
+
+# 解题模板（修改 solve.py 调用对应类别函数）
+docker exec chying-agent python3 /root/scripts/solve.py
+```
+
+## 知识库
+
+本项目配合你的本地知识库使用：
+
+- **Obsidian Wiki（217 页）**: `C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\`
+- **Trae Skills（118 个）**: `C:\Users\ZZH\.trae\skills\`
+- **项目记忆**: `.trae/memory/project_memory.md` 自动关联
+
+解题时 Trae Agent 优先查 `docs/cheatsheets/` 速查表，卡壳时自动检索知识库。
 
 ## Trae IDE 集成
 
