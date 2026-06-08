@@ -39,11 +39,11 @@
   ```
 
 ### Rule 3: Wiki = Memory
-- 路径：`C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\`
+- 配套知识库：`https://github.com/doudou0308/ctf-wiki`（238+ 页，11 赛道）
 - **仅当卡壳时检索**，不提前查知识库
-- 检索命令：
+- 确保已 clone 到本地，检索命令：
   ```bash
-  grep -ri "<关键词>" "C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\"
+  grep -ri "<关键词>" "<wiki-path>/Wiki/"
   ```
 - 按赛道分类目录：
   - `Wiki/web/` — Web 安全
@@ -79,7 +79,7 @@ docker exec chying-agent python3 /root/scripts/solve.py
 ### Step 4: 卡壳 → 查 Wiki
 同一方向 2 轮无进展时：
 ```bash
-grep -ri "<漏洞类型|工具名|关键词>" "C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\"
+grep -ri "<漏洞类型|工具名|关键词>" "<wiki-path>/Wiki/"
 ```
 
 ### Step 5: 拿 Flag → 停止
@@ -108,12 +108,12 @@ docker exec chying-agent cat /tmp/out.txt
 
 ### Wiki 检索速查
 ```bash
-# 常见场景
-grep -ri "SQL注入\|sqlmap\|sqli" "C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\web\\"
-grep -ri "栈溢出\|ROP\|ret2" "C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\pwn\\"
-grep -ri "RSA\|AES\|XOR" "C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\crypto\\"
-grep -ri "变种虚拟机\|SMC\|花指令" "C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\reverse\\"
-grep -ri "隐写\|内存取证\|网络取证" "C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\forensics\\"
+# 常见场景（替换 <wiki-path> 为实际路径）
+grep -ri "SQL注入\|sqlmap\|sqli" "<wiki-path>/Wiki/web/"
+grep -ri "栈溢出\|ROP\|ret2" "<wiki-path>/Wiki/pwn/"
+grep -ri "RSA\|AES\|XOR" "<wiki-path>/Wiki/crypto/"
+grep -ri "变种虚拟机\|SMC\|花指令" "<wiki-path>/Wiki/reverse/"
+grep -ri "隐写\|内存取证\|网络取证" "<wiki-path>/Wiki/forensics/"
 ```
 
 ---

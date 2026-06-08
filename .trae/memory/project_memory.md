@@ -3,7 +3,7 @@
 ## Tri-Link Configuration
 - **Trae**: Brain — planning, orchestration, reasoning
 - **Docker**: Hands — container `chying-agent`, all tool execution
-- **Wiki**: Memory — `C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\`
+- **Wiki**: Memory — `https://github.com/doudou0308/ctf-wiki`
 
 ## Container Status
 - Name: `chying-agent`
@@ -13,8 +13,8 @@
 ## Key Paths
 | Resource | Path |
 |----------|------|
-| Project root | `g:\项目\chying-agent-docker-tools` |
+| Project root | `.` |
 | Agent instructions | `.claude/CLAUDE.md` |
 | Docker bridge | `scripts/rexec.py` |
 | Solve template | `scripts/solve.py` |
-| Wiki root | `C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\` |
+| Wiki root | `https://github.com/doudou0308/ctf-wiki` |

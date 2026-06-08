@@ -5,7 +5,7 @@
 ## Tri-Link
 - **Trae** (Brain) → 你负责规划编排
 - **Docker** (Hands) → 所有命令通过 `rexec.py` 或 `docker exec chying-agent` 执行
-- **Wiki** (Memory) → 卡壳时查 `C:\Users\ZZH\Documents\Obsidian Vault\Wiki\Wiki\`
+- **Wiki** (Memory) → 卡壳时查 `https://github.com/doudou0308/ctf-wiki`
 
 ## 容器内脚本路径
 - 解题脚本: `/root/scripts/solve.py`
