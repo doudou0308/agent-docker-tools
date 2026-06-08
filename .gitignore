@@ -1,0 +1,32 @@
+# Docker
+Dockerfile.bak
+docker-compose.override.yml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+*.egg-info/
+dist/
+build/
+
+# CTF solution artifacts (generated during challenges)
+ctf-solutions/*/attachments/*
+ctf-solutions/*/output.txt
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+/tmp/
+*.log

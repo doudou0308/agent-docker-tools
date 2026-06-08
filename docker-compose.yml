@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  agent:
+    image: chying-agent-docker-tools:latest
+    container_name: chying-agent
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Uncomment the proxy args below if you need a proxy for builds
+      # args:
+      #   http_proxy: http://host.docker.internal:7897
+      #   https_proxy: http://host.docker.internal:7897
+    ports:
+      - "8089:8089"   # GhidraMCP REST API
+      - "8766:8766"   # GhidraMCP SSE bridge
+    volumes:
+      # Mount host workspace for easy file exchange
+      - ./ctf-solutions:/root/ctf-solutions
+      - ./scripts:/root/scripts
+      # Optional: mount your CTF challenge directory
+      # - /path/to/challenges:/root/challenges
+    environment:
+      - http_proxy=http://host.docker.internal:7897
+      - https_proxy=http://host.docker.internal:7897
+      - no_proxy=localhost,127.0.0.1
+      - CHYING_IN_CONTAINER=1
+    cap_add:
+      - NET_ADMIN    # For network tools like nmap SYN scans
+      - SYS_PTRACE   # For debugging tools like gdb
+    security_opt:
+      - seccomp:unconfined
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
