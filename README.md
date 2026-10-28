@@ -38,7 +38,7 @@ chying-agent-docker-tools/
 
 ## 快速开始
 
-### 方式一：使用已有镜像（推荐）
+### 方式一：启动（镜像不存在时可能需要构建）
 
 ```bash
 docker compose up -d
@@ -54,7 +54,8 @@ docker compose up -d
 ### 验证容器运行
 
 ```bash
-docker ps | grep chying-agent
+docker compose ps
+docker compose logs --tail=100 agent
 ```
 
 ## 典型工作流
@@ -111,7 +112,9 @@ docker exec chying-agent cat /tmp/out.txt
 
 ## 构建代理配置
 
-如果需要在代理环境下构建，编辑 `docker-compose.yml` 取消代理设置注释：
+`docker-compose.yml` 默认给运行中的容器设置 `host.docker.internal:7897` 代理。如果没有可用代理，请在 `environment` 中删除或注释 `http_proxy` 和 `https_proxy`；需要时再按自己的环境配置。
+
+如构建阶段也需要代理，编辑 `docker-compose.yml`，按实际代理地址配置 build args：
 
 ```yaml
 build:
