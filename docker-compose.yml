@@ -12,24 +12,20 @@ services:
       #   http_proxy: http://host.docker.internal:7897
       #   https_proxy: http://host.docker.internal:7897
     ports:
-      - "8089:8089"   # GhidraMCP REST API
-      - "8766:8766"   # GhidraMCP SSE bridge
+      - "127.0.0.1:8766:8766"   # GhidraMCP SSE for local clients
     volumes:
-      # Mount host workspace for easy file exchange
+      - ./samples:/root/challenges:ro
+      - ./scripts:/root/scripts:ro
       - ./ctf-solutions:/root/ctf-solutions
-      - ./scripts:/root/scripts
-      # Optional: mount your CTF challenge directory
-      # - /path/to/challenges:/root/challenges
     environment:
       - http_proxy=http://host.docker.internal:7897
       - https_proxy=http://host.docker.internal:7897
       - no_proxy=localhost,127.0.0.1
       - CHYING_IN_CONTAINER=1
-    cap_add:
-      - NET_ADMIN    # For network tools like nmap SYN scans
-      - SYS_PTRACE   # For debugging tools like gdb
+    cap_drop:
+      - NET_RAW
     security_opt:
-      - seccomp:unconfined
+      - "no-new-privileges:true"
     stdin_open: true
     tty: true
     restart: unless-stopped

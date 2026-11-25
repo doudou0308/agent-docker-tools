@@ -21,7 +21,8 @@ chying-agent-docker-tools/
 │   └── CLAUDE.md           # Agent 行为指令
 ├── scripts/
 │   └── solve.py            # 解题脚本模板
-└── ctf-solutions/          # 解题记录输出目录
+├── samples/                # 本地样本（容器内只读，启动时创建）
+└── ctf-solutions/          # 报告输出目录（容器内可写）
 ```
 
 ## 内置工具
@@ -58,32 +59,28 @@ docker compose ps
 docker compose logs --tail=100 agent
 ```
 
-## 典型工作流
+## 本地文件分析
+
+执行 `docker compose up -d` 后，把待分析文件放到仓库根目录的 `samples/`。例如，创建一个普通文本文件 `samples/sample.txt`，然后查看文件类型并保存报告：
 
 ```bash
-# 1. 启动容器
-docker compose up -d
-
-# 2. 将解题脚本/文件复制到容器
-docker cp solve.py chying-agent:/root/
-docker cp challenge.elf chying-agent:/root/
-
-# 3. 在容器内执行命令
-docker exec chying-agent python3 /root/solve.py
-
-# 4. 执行并将结果写入文件（推荐用于长输出）
-docker exec chying-agent bash -c "python3 /root/solve.py > /tmp/out.txt 2>&1"
-docker exec chying-agent cat /tmp/out.txt
+docker compose exec -T agent sh -c 'file /root/challenges/sample.txt > /root/ctf-solutions/sample-report.txt'
 ```
+
+报告保存在宿主机的 `ctf-solutions/sample-report.txt`。容器对 `samples/` 和 `scripts/` 只有读权限。修改脚本时，在宿主机的 `scripts/` 目录编辑。
 
 ### GhidraMCP 使用
 
-容器启动后自动运行 GhidraMCP（约需 30-60 秒初始化）。
+容器启动时会尝试启动 GhidraMCP。通过 `docker compose logs --tail=100 agent` 查看启动日志。
 
-- REST API: `http://localhost:8089`
-- MCP SSE: `http://localhost:8766/sse`
+- MCP SSE 供本机客户端连接，地址为 `http://127.0.0.1:8766/sse`。
+- REST API 由容器内的 MCP 桥接进程通过 `127.0.0.1:8089` 访问。
 
-在 `agent-work/.mcp.json` 中已配置好 MCP 连接。
+`agent-work/.mcp.json` 已配置本机的 MCP SSE 地址。
+
+### 容器的默认权限
+
+默认使用 Docker 的 seccomp 配置，禁止进程通过执行程序获得额外权限，并移除 `NET_RAW`。需要原始套接字或附加到其他进程的调试操作会受到限制。样本和报告目录均排除在镜像构建上下文之外。
 
 ## Tri-Link: Trae + Docker + Wiki
 
