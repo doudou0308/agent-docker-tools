@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "ghidra-mcp": {
+      "url": "http://127.0.0.1:8766/sse",
+      "type": "sse"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "chrome-devtools-mcp@latest",
+        "--headless=true",
+        "--isolated=true"
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+**
+!Dockerfile
+!LICENSE
+!docker/
+docker/**
+!docker/entrypoint.sh
+!docker/healthcheck.py
+!docker/stop-children.sh
+!docker/licenses/ghidra-mcp.LICENSE
+!docker/licenses/ghidra-mcp.NOTICE

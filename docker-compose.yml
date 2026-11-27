@@ -1,0 +1,31 @@
+name: agent-docker-tools
+
+services:
+  agent:
+    image: agent-docker-tools:local
+    container_name: agent-docker-tools
+    build:
+      context: .
+      args:
+        http_proxy: "${ADT_BUILD_HTTP_PROXY:-}"
+        https_proxy: "${ADT_BUILD_HTTPS_PROXY:-}"
+        PIP_INDEX_URL: "${ADT_PIP_INDEX_URL:-https://pypi.org/simple}"
+    ports:
+      - "127.0.0.1:8766:8766"
+    volumes:
+      - ./samples:/root/challenges:ro
+      - ./scripts:/root/scripts:ro
+      - ./ctf-solutions:/root/ctf-solutions
+    environment:
+      http_proxy: "${ADT_HTTP_PROXY:-}"
+      https_proxy: "${ADT_HTTPS_PROXY:-}"
+      no_proxy: "localhost,127.0.0.1"
+    cap_drop:
+      - NET_RAW
+    security_opt:
+      - "no-new-privileges:true"
+    init: true
+    stop_grace_period: 15s
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
